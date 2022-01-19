@@ -1,6 +1,6 @@
 # mdb-kafka-connector-cdc-sample
 
-This MonoDB Source and Sink Connector configuration is supposed to work as a simple way of testing basic functionality and connectivity between the involved components: Kafka Connect and MongoDB.
+This MongoDB Source and Sink Connector configuration is supposed to work as a simple way of testing basic functionality and connectivity between the involved components: Kafka Connect and MongoDB.
 
 ## Configuration Overview
 
