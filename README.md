@@ -33,11 +33,11 @@ Replace `connect_api_host` and `connect_api_port` with the appropriate values an
 Once all the components have been deployed, the following should be tested:
 1. Log in to the MongoDB Deployment configured in the Source Connector and insert a simple document on the appropriate namespace:
    ```
-   db.getSiblinDB("mdbtsedb").getCollection("source").insert({test: true, testIteration: 1})
+   db.getSiblingDB("mdbtsedb").getCollection("source").insert({test: true, testIteration: 1})
    ```
 2. Log in to the MongoDB Deployment configured in the Sink Connector and execute a find on the appropriate namespace:
    ```
-   db.getSiblinDB("mdbtsedb").getCollection("sink").find()
+   db.getSiblingDB("mdbtsedb").getCollection("sink").find()
    ```
    The result should be that the same document inserted in (1) is found.
 
