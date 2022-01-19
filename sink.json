@@ -1,0 +1,12 @@
+{
+"name": "mdb-kafka-connector-cdc-sample-sink",
+ "config": {
+  "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+  "tasks.max":"1",
+  "topics":"mdbtsedb.source",
+  "change.data.capture.handler":"com.mongodb.kafka.connect.sink.cdc.mongodb.ChangeStreamHandler",
+  "connection.uri":"mongodb://localhost:27017,localhost:27017,localhost:27017",
+  "database":"mdbtsedb",
+  "collection":"sink"
+ }
+}
