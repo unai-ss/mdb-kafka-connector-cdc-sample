@@ -56,7 +56,7 @@ Should the message have not been published, then it means the Source Connector i
 * Not able to process the Change Stream event.
 * Not able to produce the message to Kafka.
 
-For any of the situations described above, the log files from both MongoDB and Kafka Connect should be used. If the normal verbosity levels on the Kafka Connect environment are not enought, it's often useful to increase the verbosity level of the following classes to debug MongoDB Kafka Connector issues:
+For any of the situations described above, the log files from both MongoDB and Kafka Connect should be used for troubleshooting. If the normal verbosity levels on the Kafka Connect environment are not enought, it's often useful to increase the verbosity level of the following classes to debug MongoDB Kafka Connector issues:
 * org.mongodb.driver
   * This helps identify with detail the commands sent to MongoDB, the time they took, and the response received.
 * com.mongodb.kafka.connect.source.MongoSourceTask
