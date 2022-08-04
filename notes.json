@@ -1,0 +1,75 @@
+#### md
+
+https://www.mongodb.com/developer/article/measuring-mongodb-kafka-connector-performance/
+https://www.mongodb.com/docs/kafka-connector/current/sink-connector/fundamentals/write-strategies/#std-label-kafka-sink-write-model-time-example
+https://github.com/mongodb/mongo-kafka/tree/master/src/main/java/com/mongodb/kafka/connect/sink/writemodel/strategy
+### commands
+#### mongo
+mongo "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset"
+### docker exec
+#### DLQ consumer
+docker exec -it kafka-connect kafka-console-consumer --topic example.deadletterqueue  --bootstrap-server=kafka2:19092,kafka3:19093,kafka1:19091
+#### Producer - remember RAW JSON 
+docker exec -it kafka-connect kafka-console-producer  --topic "mdbtsedb.post-pro12" --bootstrap-server=kafka2:19092,kafka3:19093,kafka1:19091
+#### curl
+1769  curl -X DELETE http://localhost:8083/connectors/mdb-kafka-connector-post-pro-sink-and-dlq
+1770  curl -s -X POST -H 'Content-Type: application/json' --data @./sink_PostProcessor_test6.json http://localhost:8083/connectors
+1771  curl -s "http://localhost:8083/connectors?expand=info&expand=status" | jq '.[] | "\(.info.name) \(.status.connector.state) \(.status.tasks)"'
+
+
+{ "name": "Sally Kimball", "address": { "city": "Idaville" }, "hobbies": [ "reading", "solving crime" ] }
+
+{  "_id": "MN-1234", "start": "Beacon", "destination": "Grand Central", "position": [ 40, -73 ] }
+
+
+
+"tasks": [
+    {
+      "id": 0,
+      "state": "FAILED",
+      "worker_id": "connect:8083",
+      "trace": "org.apache.kafka.connect.errors.ConnectException: 
+      Tolerance exceeded in error handler\n
+        \tat org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndHandleError(RetryWithToleranceOperator.java:206)\n
+        \tat org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execute(RetryWithToleranceOperator.java:132)\n
+        \tat org.apache.kafka.connect.runtime.WorkerSinkTask.convertAndTransformRecord(WorkerSinkTask.java:516)\n
+        \tat org.apache.kafka.connect.runtime.WorkerSinkTask.convertMessages(WorkerSinkTask.java:493)\n
+        \tat org.apache.kafka.connect.runtime.WorkerSinkTask.poll(WorkerSinkTask.java:332)\n
+        \tat org.apache.kafka.connect.runtime.WorkerSinkTask.iteration(WorkerSinkTask.java:234)\n
+        \tat org.apache.kafka.connect.runtime.WorkerSinkTask.execute(WorkerSinkTask.java:203)\
+        \tat org.apache.kafka.connect.runtime.WorkerTask.doRun(WorkerTask.java:188)\n
+        \tat org.apache.kafka.connect.runtime.WorkerTask.run(WorkerTask.java:243)\n
+        \tat java.base/java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:515)\n
+        \tat java.base/java.util.concurrent.FutureTask.run(FutureTask.java:264)\n
+        \tat java.base/java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1128)\n
+        \tat java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:628)\n
+        \tat java.base/java.lang.Thread.run(Thread.java:829)\n
+    Caused by: org.apache.kafka.connect.errors.DataException: Converting byte[] to Kafka Connect data failed due to serialization error: \n
+    \tat org.apache.kafka.connect.json.JsonConverter.toConnectData(JsonConverter.java:324)\n
+    \tat org.apache.kafka.connect.storage.Converter.toConnectData(Converter.java:87)\n
+    \tat org.apache.kafka.connect.runtime.WorkerSinkTask.lambda$convertAndTransformRecord$4(WorkerSinkTask.java:516)\n
+    \tat org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndRetry(RetryWithToleranceOperator.java:156)\n
+    \tat org.apache.kafka.connect.runtime.errors.RetryWithToleranceOperator.execAndHandleError(RetryWithToleranceOperator.java:190)\n
+    \t... 13 more\n
+    Caused by: org.apache.kafka.common.errors.SerializationException: com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'line1': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\n
+     at [Source: (byte[])\"line1\"; line: 1, column: 6]\n\tat org.apache.kafka.connect.json.JsonDeserializer.deserialize(JsonDeserializer.java:66)\n
+     \tat org.apache.kafka.connect.json.JsonConverter.toConnectData(JsonConverter.java:322)\n
+     \t... 17 more\nCaused by: com.fasterxml.jackson.core.JsonParseException: Unrecognized token 'line1': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\n at [Source: (byte[])\"line1\"; line: 1, column: 6]\n
+     \tat com.fasterxml.jackson.core.JsonParser._constructError(JsonParser.java:2337)\n
+     \tat com.fasterxml.jackson.core.base.ParserMinimalBase._reportError(ParserMinimalBase.java:720)\n
+     \tat com.fasterxml.jackson.core.json.UTF8StreamJsonParser._reportInvalidToken(UTF8StreamJsonParser.java:3593)\n
+     \tat com.fasterxml.jackson.core.json.UTF8StreamJsonParser._handleUnexpectedValue(UTF8StreamJsonParser.java:2688)\n
+     \tat com.fasterxml.jackson.core.json.UTF8StreamJsonParser._nextTokenNotInObject(UTF8StreamJsonParser.java:870)\n
+     \tat com.fasterxml.jackson.core.json.UTF8StreamJsonParser.nextToken(UTF8StreamJsonParser.java:762)\n
+     \tat com.fasterxml.jackson.databind.ObjectMapper._readTreeAndClose(ObjectMapper.java:4622)\n
+     \tat com.fasterxml.jackson.databind.ObjectMapper.readTree(ObjectMapper.java:3056)\n
+     \tat org.apache.kafka.connect.json.JsonDeserializer.deserialize(JsonDeserializer.java:64)\n
+     \t... 18 more\n"
+    }
+
+
+
+
+    kafka-topics -bootstrap-server=localhost:9092,localhost:9093,localhost:9091 --alter --topic Tutorial2.pets --partitions 6      
+    kafka-topics -bootstrap-server=localhost:9092,localhost:9093,localhost:9091 --describe                                         
+      

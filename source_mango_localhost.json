@@ -1,0 +1,15 @@
+{
+"name": "mdb-kafka-connector-mango-localhost-source",
+ "config": {
+  "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+  "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+  "pipeline": "[{\"$match\": {\"ns.db\": {\"$regex\": \"^(product|stock|price)$\"}}}]",
+  "errors.log.enable": "true",
+  "errors.log.include.messages": "true",
+  "errors.tolerance": "all",
+  "tasks.max": "1"
+ }
+} 
+
+
+

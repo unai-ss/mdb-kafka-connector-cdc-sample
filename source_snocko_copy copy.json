@@ -1,0 +1,13 @@
+{
+"name": "mdb-kafka-connector-snocko-source",
+ "config": {
+  "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+  "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+  "database": "mdbtsedb",
+  "collection": "snocko7",
+  "topics":"mdbtsedb.snocko7",
+  "pipeline":"[{\"$match\":{\"operationType\":{\"$in\":[\"insert\"]}}},{\"$addFields\": {\"fullDocument.fuel_type\": \"unleaded\"}}]",
+  "publish.full.document.only":"true",
+  "tasks.max": "1"
+ }
+} 

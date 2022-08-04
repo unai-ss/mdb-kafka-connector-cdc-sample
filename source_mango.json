@@ -1,0 +1,17 @@
+{
+"name": "mdb-kafka-connector-mango7-source",
+ "config": {
+  "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+  "connection.uri": "mongodb+srv://kafkaRoleTester:xNqtH57HqcBtOWyI@cluster0.wu6w1.mongodb.net/stock",
+  "pipeline": "[{\"$match\": {\"ns.db\": {\"$regex\": \"^(stock|price|product)$\"}}}]",
+  "errors.log.enable": "true",
+  "errors.log.include.messages": "true",
+  "errors.tolerance": "all",
+  "tasks.max": "1"
+ }
+} 
+
+
+ 
+
+

@@ -1,0 +1,13 @@
+{
+"name": "mdb-kafka-connector-string-json-sample-sink",
+ "config": {
+  "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+  "tasks.max":"1",
+  "topics":"mdbtsedb.stringjson4",
+  "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+  "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+  "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+  "database":"mdbtsedb",
+  "collection":"sink"
+ }
+}

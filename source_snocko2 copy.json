@@ -1,0 +1,78 @@
+{
+"name": "mdb-kafka-connector-snocko-source",
+ "config": {
+  "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+  "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+  "database": "mdbtsedb",
+  "collection": "snocko20",
+  "topics":"mdbtsedb.snocko20",
+  "pipeline":"[{\"$match\": { \"$and\": [{\"operationType\": \"insert\"}, { \"fullDocument.qty\": 15 }] } },{\"$addFields\": {\"fullDocument.date_mod\": { \"$mod\": [ {\"$second\": \"$fullDocument.updatedDate\"},3 ] }}}]",
+  "publish.full.document.only":"true",
+  "tasks.max": "1"
+ }
+} 
+
+"pipeline":"[{\"$match\": { \"$and\": [{\"operationType\": \"insert\"}, { \"fullDocument.qty\": 15 }] } },{\"$addFields\": {\"fullDocument.date_mod\": { \"$mod\": [ {\"$second\": \"$fullDocument.updatedDate\"},3 ] }}}]",
+,{\"$addFields\": {\"fullDocument.date_mod\": { \"$mod\": [ {\"$second\": \"$fullDocument.updatedDate\"},3 ] }}}
+
+{ \"$mod\": [ {\"$second\": \"$fullDocument.updatedDate\"},3 ] }}
+
+{\"$eq\": [{ \"$mod\": [ {\"$second\": \"$fullDocument.updatedDate\"},3 ] }}, 0] }
+
+"pipeline":"[{\"$match\": { \"$and\": [{\"operationType\": \"insert\"}, { \"fullDocument.qty\": 15 }] }, {\"$eq\": [{ \"$mod\": [ {\"$second\": \"$fullDocument.updatedDate\"},3 ] }}, 0] } },{\"$addFields\": {\"fullDocument.date_mod\": { \"$mod\": [ {\"$second\": \"$fullDocument.updatedDate\"},3 ] }}}]",
+
+
+
+db.snocko20.find({"item":"card"},{$expr:{ $eq:[{$mod[15,3]}, 0 ]}})
+
+db.snocko20.aggregate([{\"$match\": { \"$and\": [{ \"item\": "card" }, {$expr: {\"$eq\": [{ \"$mod\": [ {\"$second\": \"updatedDate\"},3 ]}, 0] } }}}])
+
+replset:PRIMARY> db.snocko20.aggregate([{"$match": { "$and": [{ "item": "card" }, {$expr:{$eq:["$qty",15]}}]}}])
+{ "_id" : ObjectId("629666a8e2643275dba8047c"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+{ "_id" : ObjectId("629666dce2643275dba8047d"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+
+db.snocko20.aggregate([{"$match": { "$and": [{ "item": "card" }, {$expr:{$eq:[{$mod:["$qty",3]},5]}}]}}])
+
+
+db.snocko20.find({ "$and": [{ "item": "card" },{ "updateDate" :{$mod:[3,5]}}] }})
+
+[{ "$match": {  {{ $second: "updatedDate"}: {"$mod": [3, 0]}}  }}]
+
+replset:PRIMARY> db.snocko20.aggregate([{"$match": { "$and": [{ "item": "card" },{ "qty" :{$mod:[3,0]}},{"updatedDate" : ISODate("2014-01-01T08:16:57.736Z")}] }} ])
+{ "_id" : ObjectId("629666a8e2643275dba8047c"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+{ "_id" : ObjectId("629666dce2643275dba8047d"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+
+
+b.snocko20.aggregate([{"$match": { "$and": [{ "item": "card" },{ "qty" :{$mod:[3,0]}}, {$expr:{$eq:["$qty",15]}} ]}}])
+
+
+replset:PRIMARY> db.snocko20.aggregate([{"$match": { "$and": [{ "item": "card" },{ "qty" :{$mod:[3,0]}}, {$expr:{$eq:["$updatedDate",ISODate("2014-01-01T08:16:57.736Z")]}} ]}}])
+{ "_id" : ObjectId("629666a8e2643275dba8047c"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+{ "_id" : ObjectId("629666dce2643275dba8047d"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+
+
+db.snocko20.aggregate([{"$match": { "$and": [{ "item": "card" },{ "qty" :{$mod:[3,0]}},{$expr:{$eq:{$mod:[{$second:"$updatedDate"}, 0]}}}]}}])
+
+[mod {segudo de "update"}] eq 0
+
+[ { \"$mod\": [ {\"$second\": \"$updatedDate\"},3 ] } ]
+
+
+
+{$expr:{$eq:["$qty",15]}}]}}])
+
+
+replset:PRIMARY> db.snocko20.aggregate([{"$match": { "$and": [{ "item": "card" },{ "qty" :{$mod:[3,0]}}, {$expr:{$eq:[{$second:"$updatedDate"},57]}} ]}}])
+{ "_id" : ObjectId("629666a8e2643275dba8047c"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+{ "_id" : ObjectId("629666dce2643275dba8047d"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+
+############# set final
+replset:PRIMARY> db.snocko20.aggregate([{"$match": { "$and": [{ "item": "card" },{ "qty" :{$mod:[3,0]}}, {$expr:{$eq:[{$mod:[{$second:"$updatedDate"},3]},0]}} ]}}])
+{ "_id" : ObjectId("629666a8e2643275dba8047c"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+{ "_id" : ObjectId("629666dce2643275dba8047d"), "item" : "card", "qty" : 15, "updatedDate" : ISODate("2014-01-01T08:16:57.736Z") }
+
+#### preparar para el pipeline
+
+replset:PRIMARY> db.snocko20.aggregate([{"$match": { "$and": [{ "item": "card" },{ "qty" :{$mod:[3,0]}}, {$expr:{$eq:[{$mod:[{$second:"$updatedDate"},3]},0]}} ]}}])
+
+"pipeline":"[{\"$match\": { \"$and\": [{\"operationType\": \"insert\"}, { \"fullDocument.item\": \"card\" }, {\"$expr\":{\"$eq\":[{\"$mod\":[{\"$second\":\"$fullDocument.updatedDate\"},3]},0]}} ] } }],

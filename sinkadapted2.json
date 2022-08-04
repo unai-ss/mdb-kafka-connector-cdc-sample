@@ -1,0 +1,28 @@
+{
+"name": "mdb-kafka-connector-cdc-adapted-sink3",
+ "config": {
+  "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+  "tasks.max":"1",
+  "topics":"mdbtsedb.source4",
+  "connection.uri":"mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+  "database":"mdbtsedb",
+  "collection":"sink",
+  "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+  "value.converter": "org.apache.kafka.connect.storage.StringConverter",
+  "errors.log.include.messages": "true",
+  "errors.deadletterqueue.topic.name": "com.bt.iip.on-prem-test.internal.app15042-microservice.intents.error",
+  "errors.deadletterqueue.topic.replication.factor": "3",
+  "errors.deadletterqueue.context.headers.enable": "true",   
+  "post.processor.chain": "com.mongodb.kafka.connect.sink.processor.DocumentIdAdder",
+  "key.projection.type": "none",
+  "key.projection.list": "_id",
+  "value.projection.type": "allowlist",
+  "value.projection.list": "_id",
+  "field.renamer.mapping": "[]",
+  "field.renamer.regexp": "[]",
+  "document.id.strategy": "com.mongodb.kafka.connect.sink.processor.id.strategy.ProvidedInValueStrategy",
+  "document.id.strategy.overwrite.existing": false,
+  "mongo.errors.tolerance": "all",
+  "mongo.errors.log.enable": "true"   
+ }
+}

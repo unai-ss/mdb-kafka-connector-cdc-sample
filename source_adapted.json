@@ -1,0 +1,10 @@
+{
+"name": "mdb-kafka-connector-cdc-ikea-source",
+ "config": {
+  "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+  "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+  "database": "mgodatagen_test",
+  "collection": "test",
+  "change.stream.full.document":"updateLookup"
+ }
+}

@@ -1,0 +1,24 @@
+{
+"name": "mdb-kafka-connector-mango5-source",
+ "config": {
+  "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+  "connection.uri": "mongodb+srv://kafkaRoleTester:qu1UQmkvRTFJ0DbL@cluster0.wu6w1.mongodb.net/product",
+  "pipeline": "[{\"$match\": {\"ns.db\": {\"$regex\": \"^(stock|price|product)$\"}}}]",
+  "errors.log.enable": "true",
+  "errors.log.include.messages": "true",
+  "errors.tolerance": "all",
+  "tasks.max": "1"
+ }
+} 
+
+
+[2022-06-03 15:26:13,965] WARN Failed to resume change stream: 
+not authorized on admin to execute command {
+     aggregate: 1, 
+     pipeline: [ { $changeStream: { allChangesForCluster: true, startAfter: { _data: "82629A20D5000000012B022C0100296E5A10041E53F50B92074D3A998040DCE545761146645F69640064629A20CF9BC83BEEC28BBC560004" } } },
+         { $match: { ns.db: { $regex: "^(stock|price|product)$" } } } ], cursor: {}, 
+         $db: "admin", $clusterTime: { clusterTime: Timestamp(1654269973, 1), signature: { hash: BinData(0, 72C625B7A3F076A247A2B8A8D31F671F5A8CBE92), keyId: 7105020439058972676 } }, lsid: { id: UUID("81830cb0-c702-4ab1-9e07-fa491c9ae5d5") } } 13
+
+
+         https://www.mongodb.com/community/forums/t/atlas-database-users-and-or-roles-not-working/3092         
+

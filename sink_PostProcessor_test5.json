@@ -1,0 +1,29 @@
+{
+"name": "mdb-kafka-connector-post-pro-sink-and-dlq",
+ "config": {
+  "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+  "tasks.max":"1",
+  "topics":"mdbtsedb.post-pro11",
+  "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+  "database":"mdbtsedb",
+  "collection":"sink5",
+  "post.processor.chain":"com.mongodb.kafka.connect.sink.processor.DocumentIdAdder,com.mongodb.kafka.connect.sink.processor.KafkaMetaAdder,com.mongodb.kafka.connect.sink.processor.AllowListValueProjector",
+  "document.id.strategy":"com.mongodb.kafka.connect.sink.processor.id.strategy.UuidStrategy",
+  "document.id.strategy.overwrite.existing":"true",
+  "writemodel.strategy":"com.mongodb.kafka.connect.sink.writemodel.strategy.InsertOneDefaultStrategy",
+  "mongo.errors.tolerance":"all",
+  "mongo.errors.log.enable":"true",
+  "errors.log.include.messages":"true",
+  "errors.deadletterqueue.topic.name":"example.deadletterqueue",
+  "errors.deadletterqueue.context.headers.enable":"true",
+  "key.converter":"org.apache.kafka.connect.json.JsonConverter",
+  "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+  "key.converter.schemas.enable":"false",
+  "value.converter.schemas.enable":"false"
+ }
+}
+
+
+
+
+

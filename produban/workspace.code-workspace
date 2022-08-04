@@ -1,0 +1,11 @@
+{
+	"folders": [
+		{
+			"path": "../../Kafka-Kconnector-Prometheus-Grafana"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {}
+}

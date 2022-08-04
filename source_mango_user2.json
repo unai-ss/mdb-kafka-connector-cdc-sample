@@ -1,0 +1,15 @@
+{
+"name": "mdb-kafka-connector-mango4-source",
+ "config": {
+  "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+  "connection.uri": "mongodb+srv://unai2:unai2@kafkacluster0.yrq3qrf.mongodb.net",
+  "pipeline": "[{\"$match\": {\"ns.db\": {\"$regex\": \"^(stock|price|product)$\"}}}]",
+  "errors.log.enable": "true",
+  "errors.log.include.messages": "true",
+  "errors.tolerance": "all",
+  "tasks.max": "1"
+ }
+} 
+
+
+

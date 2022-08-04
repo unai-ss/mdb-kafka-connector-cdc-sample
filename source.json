@@ -2,7 +2,7 @@
 "name": "mdb-kafka-connector-cdc-sample-source",
  "config": {
   "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
-  "connection.uri": "mongodb://localhost:27017,localhost:27017,localhost:27017",
+  "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
   "database": "mdbtsedb",
   "collection": "source"
  }

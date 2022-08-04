@@ -1,0 +1,15 @@
+recuerda en usar raw json
+"{\"_id\": \"MN-1234\", \"start\": \"Beacon\", \"destination\": \"Grand Central\"}"
+
+recuerda en usar raw json
+"{\"flight_no\": \"Z342\",\"airport_code\": \"LAX\",\"seats\": {\"capacity\": 180,\"occupied\": 152}}"
+recuerda en usar raw json
+"{\"flight_no\": \"Z342\",\"airport_code\": \"LAX\",\"status\": \"canceled\"}"
+
+{"year": 2005,"month": 3,"day": 15,"event": "Dentist Appointment"}
+recuerda en usar raw json
+"{\"year\": 2005,\"month\": 6,\"day\": 30,\"event\": \"Unai Birhtday Appointment\"}"
+
+recuerda en usar raw json
+"{\"name\": \"Sally Kimball\",\"age\": 10,\"address\": {\"city\": \"Idaville\",\"country\": \"USA\"},\"hobbies\": [\"reading\",\"solving crime\"]}"
+
