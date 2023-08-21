@@ -1,0 +1,16 @@
+{
+    "name": "mdb-kafka-connector-stalucia-source-json-to-json",
+     "config": {
+      "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+      "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+      "database": "mgodatagen_test",
+      "collection": "test",
+      "topic.prefix": "mdb3",
+      "output.format.value":"json",
+      "output.format.key":"json",
+      "key.converter.schemas.enable":"false",
+      "value.converter.schemas.enable":"false",
+      "key.converter":"org.apache.kafka.connect.json.JsonConverter",
+      "value.converter":"org.apache.kafka.connect.json.JsonConverter"
+    }
+}

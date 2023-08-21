@@ -1,0 +1,67 @@
+{
+    "name":"MongoDBAtlasSlack",
+    "config":{
+       "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+       "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+       "namespace.mapper":"com.mongodb.kafka.connect.sink.namespace.mapping.FieldPathNamespaceMapper",
+       "namespace.mapper.value.collection.field": "ns.coll",
+       "database":"slack",
+       "topics":"event.order_export_internalx4",
+       "tasks.max":"10",
+       "key.converter":"org.apache.kafka.connect.storage.StringConverter",
+       "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+       "value.converter.schemas.enable":"false",
+       "errors.tolerance":"none",
+       "errors.log.enable":"true",
+       "errors.log.include.messages":"true",
+       "errors.deadletterqueue.topic.name":"omnihuborders.omnihub.master.order_data_adidas.deadletterqueue",
+       "errors.deadletterqueue.context.headers.enable":"true",
+       "mongo.errors.tolerance":"all",
+       "mongo.errors.log.enable":"true",
+       "bulk.write.ordered":"false",
+       "post.processor.chain":"com.mongodb.kafka.connect.sink.processor.KafkaMetaAdder,com.mongodb.kafka.connect.sink.processor.DocumentIdAdder",
+       "writemodel.strategy":"com.mongodb.kafka.connect.sink.writemodel.strategy.InsertOneDefaultStrategy",
+       "transforms":"RenameField,TimestampConverter",
+       "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+       "transforms.TimestampConverter.target.type":"Timestamp",
+       "transforms.TimestampConverter.field":"orderDate",
+       "transforms.TimestampConverter.type":"org.apache.kafka.connect.transforms.TimestampConverter$Value",
+       "transforms.TimestampConverter.format":"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
+       "transforms.RenameField.renames":"orderNumber:_id"  
+    }
+ }
+
+ //notas
+ //curl localhost:8083/connector-plugins | jq
+ //curl localhost:8083/connectors/MongoDBAtlasSlack/tasks | jq
+ //{"_id":4, "ns.coll":"reprotest"}
+
+//X  connector.class: com.mongodb.kafka.connect.MongoSinkConnector
+//X transforms.TimestampConverter.target.type: Timestamp
+//X errors.log.include.messages: true
+//X mongo.errors.log.enable: true
+//X writemodel.strategy: com.mongodb.kafka.connect.sink.writemodel.strategy.InsertOneDefaultStrategy
+//X transforms.TimestampConverter.field: orderDate
+//X tasks.max: 25
+//X transforms: RenameField,TimestampConverter 
+//X errors.deadletterqueue.context.headers.enable: true
+//X mongo.errors.tolerance: all
+//X database: omnihuborders-uat
+//X document.id.strategy: com.mongodb.kafka.connect.sink.processor.id.strategy.ProvidedInValueStrategy
+//X transforms.RenameField.type: org.apache.kafka.connect.transforms.ReplaceField$Value
+//X value.converter: org.apache.kafka.connect.json.JsonConverter
+//X errors.log.enable: true
+//X key.converter: org.apache.kafka.connect.storage.StringConverter
+//X transforms.RenameField.renames: orderNumber:_id
+//X topics: omnihuborders.order_service.event.order_export_internal_uat
+//X transforms.TimestampConverter.type: org.apache.kafka.connect.transforms.TimestampConverter$Value
+//X collection: order
+//X transforms.TimestampConverter.format: yyyy-MM-dd'T'HH:mm:ss.SSS'Z'
+//X bulk.write.ordered: false
+//X errors.deadletterqueue.topic.name: omnihuborders.omnihub.master.order_data_adidas.deadletterqueue_uat
+//X connection.uri: mongodb+srv://mongoDBdevuser:1Y4b4JZK4emPzui9@mongodbatlas-dev.7vnmg.mongodb.net/?retryWrites=true&w=majority
+//X value.converter.schemas.enable: false
+//X name: MongoDBAtlasSinkConnectorConfigUat
+//X errors.tolerance: all
+//X post.processor.chain: com.mongodb.kafka.connect.sink.processor.KafkaMetaAdder,com.mongodb.kafka.connect.sink.processor.DocumentIdAdder
+ 

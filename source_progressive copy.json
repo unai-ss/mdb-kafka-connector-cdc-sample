@@ -1,0 +1,27 @@
+{
+    "name": "mongodb-source-connector-test",
+    "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+    "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+    "mongo.errors.log.enable": "true",
+    "publish.full.document.only": "true",
+    "offset.partition.name": "7961-snowflake-kafka.1",
+    "tasks.max": "1",
+    "batch.size": "0",
+    "change.stream.full.document": "updateLookup",
+    "heartbeat.interval.ms": "5000",
+    "collection": "kafka",
+    //"pipeline": "[{\"$match\": {\"operationType\": \"insert\"}}]",
+    "mongo.errors.tolerance": "none",
+    "database": "snowflake",
+    "topic.namespace.map": "{\"snowflake.kafka\":\"7961-snowflake-kafka\"}",
+    "heartbeat.topic.name": "7961-mongo-snowflake-kafka-source-heartbeats",
+    "poll.await.time.ms": "5000",
+    "name": "mongodb-source-connector-test",
+    "copy.existing": "true",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "producer.override.sasl.mechanism": "PLAIN",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "poll.max.batch.size": "1000"
+    }
+}

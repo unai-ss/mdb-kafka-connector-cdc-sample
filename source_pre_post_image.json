@@ -1,0 +1,11 @@
+{
+    "name": "mongo-simple-source",
+    "config": {
+      "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+      "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+      "database": "test3",
+      "collection": "temperatureSensor",
+      "change.stream.full.document": "whenAvailable",  -- postImage:fullDocument field
+      "change.stream.full.document.before.change":"whenAvailable" --preImage:fullDocumentBeforeChange field
+    }
+  }

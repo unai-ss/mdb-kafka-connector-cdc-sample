@@ -71,5 +71,61 @@ docker exec -it kafka-connect kafka-console-producer  --topic "mdbtsedb.post-pro
 
 
     kafka-topics -bootstrap-server=localhost:9092,localhost:9093,localhost:9091 --alter --topic Tutorial2.pets --partitions 6      
-    kafka-topics -bootstrap-server=localhost:9092,localhost:9093,localhost:9091 --describe                                         
+    kafka-topics -bootstrap-server=localhost:9092,localhost:9093,localhost:9091 --describe             
+    
+    
+curl -k -v -X POST -H "Content-Type: application/json" http://localhost:8083/connectors --data-binary @- << EOF
+{
+  "name": "mongodb-source-connector-test",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+    "tasks.max": "1",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "connection.uri": "mongodb+srv://XXX:XXXX@search-tutorial-pl-1.0ncz3.mongodb.net/?authSource=%24external&authMechanism=MONGODB-AWS&retryWrites=true&w=majority",
+    "database": "snowflake",
+    "collection": "kafka",
+    "mongo.errors.log.enable": "true",
+    "heartbeat.interval.ms": 5000,
+    "poll.await.time.ms": "5000",
+    "batch.size":0,
+    "heartbeat.topic.name": "7961-mongo-snowflake-kafka-source-heartbeats",
+    "copy.existing" : "true",
+    "topic.namespace.map":"{"snowflake.kafka":"7961-snowflake-kafka"}",
+    "pipeline": "[{"$match": {"operationType": "insert"}}]",
+    "poll.max.batch.size":1000,
+    "change.stream.full.document" : "default",
+    "publish.full.document.only" : "true",
+    "offset.partition.name": "7961-snowflake-kafka.1",
+    "publish.full.document.only" : "true",
+    "mongo.errors.log.enable": "true",
+    "mongo.errors.tolerance": "none"
+   }
+  }
+EOF
+
+curl -k -v -X POST -H "Content-Type: application/json" http://localhost:8083/connectors --data-binary @- << EOF
+{
+  "name": "mdb-kafka-connector-cdc-tim-source",
+   "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+    "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+    "database": "mgodatagen_test",
+    "pipeline": "[{"$match": {"operationType": "insert"}}]",
+    "collection": "test"
+   }
+  }
+
+  curl -k -v -X POST http://localhost:8083/connectors -H 'Content-Type: application/json' -d @- <<EOF
+ { 
+  "name": "mdb-kafka-connector-cdc-tim3-source",
+  "config": {
+   "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+   "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+   "database": "mgodatagen_test",
+   "pipeline": "[{\"match\": {\"operationType\": \"insert\"}}]",
+   "collection": "test"
+  }
+ }
+  EOF
       

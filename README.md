@@ -65,3 +65,8 @@ For any of the situations described above, the log files from both MongoDB and K
   * This helps trace with detail what’s happening inside the MongoDB Sink Connector task/s.
 
 When working with a distributed Kafka Connect environment, we recommend testing the above sample app in all nodes to ensure all of them are working appropriately.
+
+#### first and last register on the oplog
+
+Primero: `db.oplog.rs.find({},{"ts": 1}).sort({$natural: 1}).limit(1)`
+Último: `db.oplog.rs.find({},{"ts": 1}).sort({$natural: -1}).limit(1)`

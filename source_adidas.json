@@ -3,11 +3,7 @@
      "config": {
       "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
       "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
-      "database": "mgodatagen_test",
-      "collection": "test",
-      "heartbeat.interval.ms" : 60000,
-      "heartbeat.topic.name" : "__rbs_heartbeats"
+      "database": "event",
+      "collection": "order_export_internal3"
      }
     }
-
-

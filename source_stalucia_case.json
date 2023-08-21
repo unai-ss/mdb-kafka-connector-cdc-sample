@@ -1,0 +1,21 @@
+{
+  "name": "mdb-kafka-connector-stalucia-source-case",
+   "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+    "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+    "database": "mgodatagen_test",
+    "collection": "test",
+    "topic.prefix": "mdb-case",
+    "output.format.value":"schema",
+    "value.converter.schemas.enable": "true",
+    "output.schema.value": "{\"type\": \"record\", \"name\": \"fullDocument\", \"fields\": [{\"name\": \"fullDocument.item\", \"type\": \"string\"}]}",
+    "key.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+    "output.format.key":"schema",
+    "output.schema.key":"{ \"type\": \"record\", \"name\": \"keySchema\", \"fields\" : [ { \"name\": \"hola\", \"type\": [\"string\", \"null\"] } ] }",
+    "change.stream.full.document": "default",
+    "publish.full.document.only": "false"
+  }
+}
+
+"output.schema.value": "{\"type\": \"record\", \"name\": \"fullDocument\", \"fields\": [{\"name\": \"fullDocument.item\", \"type\": \"string\"}]}",

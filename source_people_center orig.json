@@ -1,0 +1,72 @@
+{
+    "name": "mdb-kafka-connector-cdc-people-center-source",
+     "config": {
+      "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+      "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+      "database": "sample_mflix",
+      "collection": "role_with_company",
+      "mongo.errors.deadletterqueue.topic.name": "cdc.sample_mflix.role_with_company-dlq",
+      "errors.log.include.messages": "true",
+      "errors.log.enable": "true",
+      "tasks.max": "1",
+      "output.format.value": "json",
+      "transforms": "Extract",
+      "errors.deadletterqueue.context.headers.enable": "true",
+      "output.format.key": "schema",
+      "errors.tolerance": "all",
+      "topic.namespace.map": "{\"sample_mflix.role_with_company\": \"cdc.sample_mflix.role_with_company\", \"*\": \"cdc-sample_mflix-role_with_company-catch-all\"}",
+      "copy.existing": "true",
+      "value.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+      "key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+      "publish.full.document.only": "false",
+      "transforms.ExtractField.field": "fullDocument.company",
+      "change.stream.full.document": "updateLookup",
+      "output.schema.key": "{\"name\":\"RoleWithCompanyKeySchema\",\"type\":\"record\",\"fields\":[{\"name\":\"fullDocument.company\",\"type\":\"string\"}]}",
+      "pipeline": "[{\"$match\": {\"operationType\": {\"$ne\": \"delete\"}}}]",
+      "key.converter.schemas.enable": "false",
+      "max.request.size": "16777216",
+      "output.json.formatter": "com.mongodb.kafka.connect.source.json.formatter.SimplifiedJson",
+      "producer.override.max.request.size": "16777216",
+      "poll.await.time.ms": "5000"
+     }
+    }
+
+
+    ### version 2
+
+
+    {
+        "name": "mdb-kafka-connector-cdc-people-center-source",
+         "config": {
+          "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+          "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+          "database": "sample_mflix",
+          "collection": "movies",
+          "mongo.errors.deadletterqueue.topic.name": "cdc.sample_mflix.role_with_company-dlq",
+          "errors.log.include.messages": "true",
+          "errors.log.enable": "true",
+          "tasks.max": "1",
+          "output.format.value": "json",
+          "errors.deadletterqueue.context.headers.enable": "true",
+          "output.format.key": "schema",
+          "errors.tolerance": "all",
+          "topic.namespace.map": "{\"sample_mflix.movies\": \"cdc.sample_mflix.movies\", \"*\": \"cdc-sample_mflix-movies\"}",
+          "copy.existing": "true",
+          "value.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+          "key.converter": "org.apache.kafka.connect.converters.ByteArrayConverter",
+          "publish.full.document.only": "false",
+          "change.stream.full.document": "updateLookup",
+          "output.schema.key": "{\"name\":\"RoleWithCompanyKeySchema\",\"type\":\"record\",\"fields\":[{\"name\":\"fullDocument.company\",\"type\":\"string\"}]}",
+          "pipeline": "[{\"$match\": {\"operationType\": \"delete\"}}]",
+          "key.converter.schemas.enable": "false",
+          "max.request.size": "16777216",
+          "output.json.formatter": "com.mongodb.kafka.connect.source.json.formatter.SimplifiedJson",
+          "producer.override.max.request.size": "16777216",
+          "poll.await.time.ms": "5000"
+         }
+        }
+    
+
+        #### caso
+
+        https://support.mongodb.com/case/00930033

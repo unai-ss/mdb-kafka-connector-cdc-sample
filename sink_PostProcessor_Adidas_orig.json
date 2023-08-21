@@ -1,0 +1,56 @@
+{
+    "name":"MongoDBAtlasSinkConnectorConfigAdidas",
+    "config":{
+       "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+       "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+       "database":"omnihuborders-stg",
+       "collection":"order",
+       "topics":"event.order_export_internalx3",
+       "tasks.max":"10",
+       "key.converter":"org.apache.kafka.connect.storage.StringConverter",
+       "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+       "value.converter.schemas.enable":"false",
+       "errors.tolerance":"all",
+       "errors.log.enable":"true",
+       "errors.log.include.messages":"true",
+       "errors.deadletterqueue.topic.name":"omnihuborders.omnihub.master.order_data_adidas.deadletterqueue",
+       "errors.deadletterqueue.context.headers.enable":"true",
+       "mongo.errors.tolerance":"all",
+       "mongo.errors.log.enable":"true",
+       "bulk.write.ordered":"false",
+       "post.processor.chain":"com.mongodb.kafka.connect.sink.processor.KafkaMetaAdder,com.mongodb.kafka.connect.sink.processor.DocumentIdAdder",
+       "document.id.strategy":"com.mongodb.kafka.connect.sink.processor.id.strategy.ProvidedInValueStrategy",
+       "transforms":"RenameField",
+       "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+       "transforms.RenameField.renames":"orderNumber:_id"  
+    }
+ }
+
+
+ //"transforms.RenameField.renames":"fullDocument.orderNumber:documentKey._id"  
+
+
+// "transforms":"RenameField",
+// "transforms.RenameField.type":"org.apache.kafka.connect.transforms.ReplaceField$Value",
+// "transforms.replacefield.include": "fullDocument.orderNumber",
+// "transforms.RenameField.renames":"fullDocument.orderNumber:fullDocument.orderNumberMod"  
+
+
+// "key.converter":"org.apache.kafka.connect.json.JsonConverter",
+// "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+// "value.converter.schemas.enable":"false",
+
+// docker exec -it kafka-connect kafka-console-producer --topic event.order_export_internalx3 --bootstrap-server=kafka2:19092,kafka3:19093,kafka1:19091
+
+//>{"_id":"4", "usss":"a"}
+//>{"_id":"4", "usss":"a"}
+//>{"_id":"4", "usss":"a"}{"_id":"4", "usss":"a"}
+
+///Cannot overwrite the existing '_id' value. 'document.id.strategy.overwrite.existing' is set to false and the document. (com.mongodb.kafka.connect.sink.processor.DocumentIdAdder:54)
+
+
+       //"errors.tolerance":"all",
+       //"errors.log.enable":"true",
+       //"errors.log.include.messages":"true",
+       //"errors.deadletterqueue.topic.name":"omnihuborders.omnihub.master.order_data_adidas.deadletterqueue",
+       //"errors.deadletterqueue.context.headers.enable":"true",

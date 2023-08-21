@@ -1,0 +1,19 @@
+{
+    "name": "mdb-kafka-connector-cdc-people-center-source",
+     "config": {
+      "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+      "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+      "database": "sample_mflix",
+      "collection": "movies",
+      "mongo.errors.tolerance": "all",
+      "mongo.errors.log.enable": "true",
+      "mongo.errors.deadletterqueue.topic.name": "DLQ.sample_mflix.movies",
+      "output.format.key": "schema",
+      "output.format.value" : "bson",
+      "output.json.formatter" : "com.mongodb.kafka.connect.source.json.formatter.SimplifiedJson",
+      "output.schema.key": "{\"type\": \"record\", \"name\": \"keySchema\", \"fields\" : [{\"name\": \"documentKey._id\", \"type\": \"string\"}]}",
+      "change.stream.full.document": "updateLookup",
+      "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+      "value.converter": "org.apache.kafka.connect.storage.StringConverter"
+     }
+    }

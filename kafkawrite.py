@@ -9,3 +9,5 @@ data = {'name': 'roscoe'}
 p.send('Tutorial2.pets', value = data)
 
 p.flush()
+
+{'name': 'unai', 'surname': 'santamaria'}

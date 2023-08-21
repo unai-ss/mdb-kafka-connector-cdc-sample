@@ -1,0 +1,22 @@
+{
+    "name":"MongoDBAtlasSinkConnectorConfig",
+    "config":{
+       "connector.class":"com.mongodb.kafka.connect.MongoSinkConnector",
+       "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+       "database":"omnihuborders-stg",
+       "collection":"order",
+       "topics":"event.order_export_internal2",
+       "tasks.max":"10",
+       "key.converter":"org.apache.kafka.connect.storage.StringConverter",
+       "value.converter":"org.apache.kafka.connect.json.JsonConverter",
+       "value.converter.schemas.enable":"false",
+       "bulk.write.ordered":"false",
+       "post.processor.chain":"com.mongodb.kafka.connect.sink.processor.KafkaMetaAdder,com.mongodb.kafka.connect.sink.processor.DocumentIdAdder",
+       "document.id.strategy":"com.mongodb.kafka.connect.sink.processor.id.strategy.ProvidedInValueStrategy",
+       "mongo.errors.tolerance":"all",
+       "mongo.errors.log.enable":"true",
+       "errors.log.include.messages":"true",
+       "errors.deadletterqueue.topic.name":"uss.deadletterqueue2",
+       "errors.deadletterqueue.context.headers.enable":"true"
+    }
+ }

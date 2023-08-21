@@ -1,0 +1,16 @@
+{
+    "name": "mdb-kafka-connector-stalucia-source-json-to-Protobuf",
+     "config": {
+      "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+      "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+      "database": "mgodatagen_test",
+      "collection": "test",
+      "topic.prefix": "mdb5",
+      "output.format.value":"schema",
+      "output.format.key":"schema",
+      "key.converter":"io.confluent.connect.protobuf.ProtobufConverter",
+      "key.converter.schema.registry.url":"<your schema registry uri>",
+      "value.converter":"io.confluent.connect.protobuf.ProtobufConverter",
+      "value.converter.schema.registry.url":"<your schema registry uri>"
+    }
+}

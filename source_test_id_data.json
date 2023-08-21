@@ -1,0 +1,16 @@
+{
+  "name": "mdb-kafka-connector-cdc-tcgx-source",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+    "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+    "database": "mgodatagen_test2",
+    "collection": "test2",
+    "topic.prefix": "TCG6",
+    "output.format.value": "schema",
+    "value.converter.schemas.enable": "true",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "change.stream.full.document": "default",
+    "publish.full.document.only": "false"
+   }
+  }

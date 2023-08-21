@@ -1,0 +1,57 @@
+{
+    "name": "mongodb-test-sink-bigquery-v9",
+    "config": {
+      "connector.class": "com.wepay.kafka.connect.bigquery.BigQuerySinkConnector",
+      "tasks.max" : "1",
+      "topics.regex": "jago_mongo.main_cdc_test",
+      "autoCreateTables": "true",
+      "project": "jago-data-sandbox",
+      "transforms" : "expand, extractClusterTime, extractDb, extractColl, renameField, timestampConverter, renameTopic",
+      "transforms.expand.type": "com.redhat.insights.expandjsonsmt.ExpandJSON$Value",
+      "transforms.expand.sourceFields": "clusterTime",
+      "transforms.expand.sourceDataType": "timestamp",
+
+      "transforms.extractClusterTime.type" : "com.github.jcustenborder.kafka.connect.transform.common.ExtractNestedField$Value",
+      "transforms.extractClusterTime.input.inner.field.name" : "clusterTimeTimestamp",
+      "transforms.extractClusterTime.input.outer.field.name" : "clusterTime",
+      "transforms.extractClusterTime.output.field.name" : "clusterTimeTimestamp",
+  
+      "transforms.extractDb.type" : "com.github.jcustenborder.kafka.connect.transform.common.ExtractNestedField$Value",
+      "transforms.extractDb.input.inner.field.name" : "db",
+      "transforms.extractDb.input.outer.field.name" : "ns",
+      "transforms.extractDb.output.field.name" : "db",
+  
+      "transforms.extractColl.type" : "com.github.jcustenborder.kafka.connect.transform.common.ExtractNestedField$Value",
+      "transforms.extractColl.input.inner.field.name" : "coll",
+      "transforms.extractColl.input.outer.field.name" : "ns",
+      "transforms.extractColl.output.field.name" : "coll",
+  
+      "transforms.renameField.type": "org.apache.kafka.connect.transforms.ReplaceField$Value",
+      "transforms.renameField.renames": "clusterTimeTimestamp:clusterTimestamp",
+  
+      "transforms.timestampConverter.field": "clusterTimestamp",
+      "transforms.timestampConverter.type": "org.apache.kafka.connect.transforms.TimestampConverter$Value",
+      "transforms.timestampConverter.target.type": "Timestamp",
+  
+      "transforms.renameTopic.type": "org.apache.kafka.connect.transforms.RegexRouter",
+      "transforms.renameTopic.regex": "jago_mongo.main_cdc_test",
+      "transforms.renameTopic.replacement": "jago_mongodb_cdc_test",
+  
+      "defaultDataset" : "mongodb_source_cdc_backup",
+      "keyfile": "",
+      "bigQueryPartitionDecorator": "false",
+      "bigQueryRetry": "3",
+      "bigQueryRetryWait": "5000",
+      "timestampPartitionFieldName": "clusterTimestamp",
+      "clusteringPartitionFieldNames": "db,coll,clusterTimestamp",
+      "keySource": "JSON",
+      "threadPoolSize": "50",
+      "allowBigQueryRequiredFieldRelaxation": "true",
+      "allBQFieldsNullable": "true",
+      "allowNewBigQueryFields": true,
+      "allowSchemaUnionization": "true",
+      "enableBatchLoad": "jago_mongodb_cdc_test",
+      "gcsBucketName": "mongodb_cdc_sink_bigquery_test",
+      "batchLoadIntervalSec": "300"
+    }
+  }

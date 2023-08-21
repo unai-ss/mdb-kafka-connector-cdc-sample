@@ -1,0 +1,23 @@
+      { 
+        "name": "mongodb-source-test-v19", 
+        "config": { 
+          "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector", 
+          "tasks.max" : "1", 
+          "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset", 
+          "output.format.key": "schema", 
+          "output.format.value": "schema", 
+          "output.schema.infer.value": "false", 
+          "publish.full.document.only": "false", 
+          "change.stream.full.document": "updateLookup", 
+          "poll.await.time.ms": 500, 
+          "topic.namespace.map": "{\"*\": \"jago_mongo.main_cdc_test\"}", 
+          "heartbeat.interval.ms": 30000, 
+          "topic.creation.default.replication.factor": 3, 
+          "topic.creation.default.partitions": 3, 
+          "topic.creation.default.retention.ms": 1800000, 
+          "producer.override.max.request.size": 188743680, 
+          "offset.flush.interval.ms": 1000, 
+          "offset.flush.timeout.ms": 10000, 
+          "copy.existing": "false" 
+          } 
+        }

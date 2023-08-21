@@ -1,0 +1,21 @@
+{
+    "name": "mdb-kafka-connector-cdc-tim-source",
+     "config": {
+      "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+      "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+      "database": "mgodatagen_test",
+      "collection": "testrbs6",
+      "publish.full.document.only": "true",
+      "value.converter.schemas.enable": "true",
+      "value.converter": "io.confluent.connect.avro.AvroConverter",
+      "output.schema.value": "{\"type\": \"record\",\"name\": \"Transaction\",\"fields\":[{\"name\": \"id\",\"type\": \"string\"},{\"name\": \"amount\", \"type\": \"double\"}]}",
+      "key.converter": "io.confluent.connect.avro.AvroConverter",
+      "key.converter.schema.registry.url": "http://schema-registry-1:8081",
+      "value.converter.schema.registry.url": "http://schema-registry-1:8081",
+      "output.format.value": "schema",
+      "output.format.key": "schema"
+     }
+    }
+
+
+

@@ -1,0 +1,5 @@
+{
+    \"_id\": {\"_data\": \"826311E302000000022B022C0100296E5A1004AF9D6770DE384ECA93C7A305CDC03FF046645F696400646311E302231BB2068E5C35CA0004\"}} 
+  Value={\"_id\": {\"_data\": \"826311E302000000022B022C0100296E5A1004AF9D6770DE384ECA93C7A305CDC03FF046645F696400646311E302231BB2068E5C35CA0004\"}, 
+  \"operationType\": \"insert\", \"clusterTime\": {\"$timestamp\": {\"t\": 1662116610, \"i\": 2}},
+   \"fullDocument\": {\"_id\": {\"$oid\": \"6311e302231bb2068e5c35ca\"}, \"calc\": 2090845886852}, \"ns\": {\"db\": \"search_services\", \"coll\": \"listings_e\"}, \"documentKey\": {\"_id\": {\"$oid\": \"6311e302231bb2068e5c35ca\"}}}

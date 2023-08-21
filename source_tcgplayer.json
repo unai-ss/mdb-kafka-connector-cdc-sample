@@ -1,0 +1,17 @@
+{
+  "name": "mdb-kafka-connector-cdc-tcgx-source",
+  "config": {
+    "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
+    "connection.uri": "mongodb://host.docker.internal:27017,host.docker.internal:27018,host.docker.internal:27019/?replicaSet=replset",
+    "database": "search_services",
+    "collection": "listings_ee",
+    "topic.prefix": "TCG5",
+    "output.format.value": "schema",
+    "value.converter.schemas.enable": "true",
+    "output.schema.value": "{\"type\": \"record\", \"name\": \"fullDocument\", \"fields\": [{\"name\": \"fullDocument.calc\", \"type\": \"double\"}]}",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "change.stream.full.document": "default",
+    "publish.full.document.only": "false"
+   }
+  }
